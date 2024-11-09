@@ -1,0 +1,43 @@
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+        self.is_borrowed = False
+
+    def mark_as_borrowed(self):
+        if not self.is_borrowed:
+            self.is_borrowed = True
+            print(f"The book '{self.title}' has been marked as borrowed.")
+        else:
+            print(f"The book '{self.title}' is already borrowed.")
+
+    def mark_as_returned(self):
+        if self.is_borrowed:
+            self.is_borrowed = False
+            print(f"The book '{self.title}' has been marked as returned.")
+        else:
+            print(f"The book '{self.title}' was not borrowed.")
+
+class LibraryMember:
+    def __init__(self, name, member_id):
+        self.name = name
+        self.member_id = member_id
+        self.borrowed_books = []
+
+    def borrow_book(self, book):
+        if not book.is_borrowed:
+            book.mark_as_borrowed()
+            self.borrowed_books.append(book)
+            print(f"{self.name} has borrowed '{book.title}'.")
+        else:
+            print(f"The book '{book.title}' is not available for borrowing.")
+
+    def return_book(self, book):
+        if book in self.borrowed_books:
+            book.mark_as_returned()
+            self.borrowed_books.remove(book)
+            print(f"{self.name} has returned '{book.title}'.")
+        else:
+            print(f"{self.name} did not borrow '{book.title}'.")
+
+
